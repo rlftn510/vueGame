@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <word-relay></word-relay>
+        <word-relay></word-relay>  
+        <word-relay></word-relay>    
+    </div>
+    <script>
+        Vue.component('word-relay', {
+            template :`
+            <div>
+                <div>
+                {{word}}
+                </div>
+                <form v-on:submit="onSubmit">
+                    <input type="text" v-model="value" ref="answer">
+                    <button type="submit">click</button>
+                </form>
+                <div>{{result}}</div>
+            </div>
+            `,
+            data(){
+                return {
+                    word : "길수",
+                    result : "",
+                    value : ""
+                }
+            },
+            methods : {
+                onSubmit(e) {
+                    e.preventDefault()
+                    if(this.word[this.word.length - 1] === this.value[0]) {
+                        this.result = '정답'
+                        this.word = this.value
+                        this.value = ""
+                        this.$refs.answer.focus()
+                    } else {
+                        this.result = "떙"
+                        this.value = ""
+                        this.$refs.answer.focus()
+                    }
+                } 
+            }
+        })
+    </script>
+    <script>
+        const app = new Vue({
+            el : '#app',
+            // data : {
+            //     word : "길수",
+            //     result : "",
+            //     value : ""
+            // },
+            // methods : {
+            //     onSubmit(e) {
+            //         e.preventDefault()
+            //         if(this.word[this.word.length - 1] === this.value[0]) {
+            //             this.result = '정답'
+            //             this.word = this.value
+            //             this.value = ""
+            //             this.$refs.answer.focus()
+            //         } else {
+            //             this.result = "떙"
+            //             this.value = ""
+            //             this.$refs.answer.focus()
+            //         }
+            //     } 
+            // }
+        })
+    </script>
+</body>
+</html>     
