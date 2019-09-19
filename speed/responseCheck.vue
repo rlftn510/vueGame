@@ -1,10 +1,12 @@
 <template>
   <div>
     <div id="screen" v-bind:class="state" @click="onClickScreen">{{message}}</div>
-    <div>
-      <p>평균시간 {{result.reduce((a, c) => a + c, 0) / result.length || 0 }}ms</p>
+    <template v-show="result.length">
+      <!-- v-if인 경우는 화면에 출력을 안해주지면 v-show는 태그는 있지만 보여주는 않는다.(display:none) -->
+      <p>평균시간 {{average}}ms</p>
       <button @click="onReset">리셋</button>
-    </div>
+    </template>
+    <!-- template 를 태그를 쓸 경우에 임시 태그이다.  -->
   </div>
 </template>
 
@@ -19,6 +21,13 @@
           result : [],
           state: 'waiting',
           message : '클릭해소 시작하세요'
+        }
+      },
+      computed : {
+        // computed는 데이터를 가공해서 쓸때 !!!!!!
+        average() {
+          return this.result.reduce((a, c) => a + c, 0) / this.result.length || 0 
+          //값이 캐싱이 된다.
         }
       },
       methods : {
