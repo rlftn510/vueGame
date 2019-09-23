@@ -10,6 +10,7 @@
 
 <script>
   import tableComponent from './tableComponent.vue'
+  import eventBus from './eventBus.js' 
   export default {
     components : {
       tableComponent
@@ -27,7 +28,7 @@
     },
     methods : {
 
-    }
+    },
   }
 </script>
 
